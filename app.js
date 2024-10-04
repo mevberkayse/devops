@@ -13,10 +13,15 @@ const app = express();
 
 app.use(bodyParser.json());
 
+app.get("/", (request, response) => {
+	console.log("HealthCheck!");
+	response.end("HealthCheck!");
+});
 
 app.post("/application/push", (request, response) => {
     let branch = request.body.ref.split("/")[2];
     console.log(branch);
+response.end("ok");
 })
 
 const options = {
