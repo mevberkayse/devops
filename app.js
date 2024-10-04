@@ -29,5 +29,5 @@ const options = {
 const server = https.createServer(options, app);
 
 server.listen(PORT, () => {
-  console.log(`App listening on https://localhost:${port}`);
+  console.log(`App listening on https://localhost:${PORT}`);
 });
