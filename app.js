@@ -28,6 +28,6 @@ const options = {
 // Create HTTPS server
 const server = https.createServer(options, app);
 
-server.listen(port, () => {
+server.listen(PORT, () => {
   console.log(`App listening on https://localhost:${port}`);
 });
