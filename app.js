@@ -58,7 +58,7 @@ function hexToBytes(hex) {
 
     return bytes;
 }
-
+/*
 app.use("*", (request, response, next) => {
 	let signature = request.headers["x-hub-signature-256"];
 	let payload = JSON.stringify(request.body);
@@ -70,7 +70,7 @@ app.use("*", (request, response, next) => {
 			response.status(403).end("Forbidden");
 		}
 	});
-})
+})*/
 app.get("/", (request, response) => {
   console.log("HealthCheck!");
   response.end("HealthCheck!");
