@@ -104,8 +104,6 @@ app.post("/application/push", (request, response) => {
       response.end("ok");
     }
   );
-
-  response.end("ok");
 });
 
 const options = {
