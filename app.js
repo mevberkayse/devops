@@ -88,7 +88,7 @@ app.post("/application/push", (request, response) => {
     response.end("unknown branch");
   }
   exec(
-    `cd C:\\inetpub\\wwwroot\\${branch}\\ && git pull && composer install && npm install && npm run build`,
+    `cd C:\\inetpub\\wwwroot\\${branch}\\ && git pull && composer install && php artisan migrate && npm install && npm run build`,
     (error, stdout, stderr) => {
       if (error) {
         console.log(`error: ${error.message}`);
@@ -105,7 +105,36 @@ app.post("/application/push", (request, response) => {
     }
   );
 });
+app.post("/mdip/push", (request, response) => {
+  let branch = request.body.ref.split("/")[2];
 
+  if (branch !== "main" || branch !== "master" || branch !== "test") {
+    response.end("unknown branch");
+  }
+  let loc = "";
+  if(branch == test) {
+    loc = "C:\\inetpub\\mdip\\test\\mdip\\"
+  } else {
+    loc = "C:\\inetpub\\mdip\\prod\\"
+  }
+  exec(
+    `cd ${loc} && git pull && composer install && php artisan migrate && npm install && npm run build`,
+    (error, stdout, stderr) => {
+      if (error) {
+        console.log(`error: ${error.message}`);
+        response.end("error");
+        return;
+      }
+      if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        response.end("error");
+        return;
+      }
+      console.log(`stdout: ${stdout}`);
+      response.end("ok");
+    }
+  );
+});
 const options = {
   key: fs.readFileSync(path.join(__dirname, "localhost-key.pem")),
   cert: fs.readFileSync(path.join(__dirname, "localhost.pem"))
