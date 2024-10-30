@@ -87,8 +87,16 @@ app.post("/application/push", (request, response) => {
   ) {
     response.end("unknown branch");
   }
+  if(branch == "test") {
+    loc = "C:\\inetpub\\test.arabul.us\\"
+  } else if(branch == "main" || branch == "master") {
+    loc = "C:\\inetpub\\arabul.us\\"
+  } else {
+    return response.end("unknown branch");
+  }
+
   exec(
-    `cd C:\\inetpub\\wwwroot\\${branch}\\ && git pull && composer install && php artisan migrate && npm install && npm run build`,
+    `cd ${loc} && git pull && composer install && php artisan migrate && npm install && npm run build`,
     (error, stdout, stderr) => {
       if (error) {
         console.log(`error: ${error.message}`);
@@ -112,7 +120,7 @@ app.post("/mdip/push", (request, response) => {
     response.end("unknown branch");
   }
   let loc = "";
-  if(branch == test) {
+  if(branch == "test") {
     loc = "C:\\inetpub\\mdip\\test\\mdip\\"
   } else {
     loc = "C:\\inetpub\\mdip\\prod\\"
